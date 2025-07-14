@@ -120,7 +120,7 @@
           <span>
             <span class="diamond diamond-xsm"></span>
           </span>
-          <span class="text-rose-800 ps-3">Confirmar asistencia en la encuesta de WhatsApp.</span>
+          <span class="text-rose-800 ps-3">Confirmar asistencia llenando el <a href="#form" class="text-rose-600">formulario de abajo.</a></span>
         </div>
         <div class="flex gap-2 items-center animate__animated animate__flipInX">
           <span>
@@ -198,8 +198,8 @@
     </div>
 
 
-      <div class="text-center animate__animated animate__fadeIn">
-        <h2 class="text-2xl mb-4">Envía felicitaciones:</h2>
+      <div class="text-center animate__animated animate__fadeIn" id="form">
+        <h2 class="text-2xl mb-4">Confirma tu asistencia:</h2>
         <form @submit.prevent="submitForm" class="max-w-md mx-auto py-3">
 
           <template x-if="loading">
