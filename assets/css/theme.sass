@@ -1,0 +1,162 @@
+/*----------INITIALIZE STYLES----------*/
+// Variables
+:root
+    --primary: #a50644
+    --font: #eeeadf
+    --text:#a50644
+    --fontOpacity: 0.50
+    --radius: 50px
+
+@font-face 
+    font-family: 'avallon'
+    src: url('../font/avallonalt.woff') format('woff'), url('../font/avallonalt.ttf') format('truetype')
+
+@font-face 
+    font-family: 'rocatwo'
+    src: url('../font/rocatwo.ttf') format('truetype')
+
+/*------------------------------------*/
+
+.bg-font
+    position: fixed
+    top: 0
+    left: 0
+    z-index: 0
+    width: 100%
+    height: 100%
+    background: url("../img/font.png")
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center bottom
+
+.logo
+    width: 470px
+
+//-------------------------------------------
+
+.line
+    border-right: 3px solid var(--primary)
+
+.letter-xl
+    letter-spacing: 0.4rem
+
+h1
+    font-family: "avallon"
+
+.input
+    background: white
+
+.button
+    background: var(--primary)
+
+    &:hover
+        background: var(--primary)
+
+.button-secondary
+    background: var(--primary)
+
+    &:hover
+        background: var(--primary)
+
+.cursor-pointer
+    cursor: pointer
+
+.bubble-line
+    width: 100%
+    border-bottom: 5px dotted var(--primary)
+
+.text-shadow
+    text-shadow: 2px 2px 2px black
+
+//-----------------------------------------
+.loader-page
+    width: 100%
+    height: 100%
+    background: var(--font)
+    z-index: 999
+    position: fixed
+    top: 0
+    left: 0
+
+.loader-content
+    width: 100%
+    height: 100%
+
+.loader
+  width: 50px
+  aspect-ratio: 1
+  box-shadow: 0 0 0 3px var(--primary) inset
+  opacity: 0.5
+  border-radius: 50%
+  position: relative
+  animation: l8-0 1.5s linear infinite
+
+.loader:before
+  content: ""
+  position: absolute
+  top: 50%
+  left: calc(100% + 2px)
+  box-shadow: inherit
+  width: 25px
+  aspect-ratio: 1
+  border-radius: 50%
+  animation: l8-1 1.5s linear infinite
+
+@keyframes l8-1
+  0%
+    transform-origin: -27px 50%
+    width: 20px
+    transform: translateY(-50%) rotate(0)
+
+  100%
+    transform-origin: -12px 50%
+    width: 50px
+    transform: translateY(-50%) rotate(180deg)
+
+@keyframes l8-0 
+  0%
+    width: 50px
+    transform: translate(0)
+  
+  100% 
+    width: 20px
+    transform: translate(37px)
+
+//----------------------------------------
+
+.diamond
+  width: 150px
+  height: 150px
+  background-color: var(--primary)
+  transform: rotate(45deg)
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+
+.diamond .text
+  transform: rotate(-45deg)
+  color: var(--font)
+  font-weight: bold
+
+.diamond-sm
+  width: 80px
+  height: 80px
+
+.diamond-xsm
+  width: 15px
+  height: 15px
+
+.diamond-sm2
+  width: 30px
+  height: 30px
+
+.diamond-outline
+    background-color: var(--font)
+    border: 2px solid var(--primary)
+
+.diamond-outline .text
+    color: var(--primary)
+
+.icon-rotate
+    transform: rotate(45deg)
