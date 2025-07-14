@@ -37,6 +37,18 @@ function guestManager() {
         this.open = true;
       }
     },
+    editModal: {
+      open: false,
+      id: '',
+      name: '',
+      confirm: '',
+      show(id,name,confirm) {
+        this.id = id;
+        this.name = name;
+        this.confirm = confirm;
+        this.open = true;
+      }
+    },
     statsModal: {
       open: false,
       msg: '',
@@ -118,6 +130,45 @@ function guestManager() {
         }
       setTimeout(() => { this.errors = ''; this.msg = '' }, 10000);
     },
+
+    async update() {
+
+      try {
+        const res = await fetch('admin/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: this.editModal.id, name: this.editModal.name, confirm: this.editModal.confirm }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          this.msg = "Invitado actualizado correctamente";
+          setTimeout(() => this.msg = '', 8000);
+
+          const index = this.guests.findIndex(g => g.id === this.editModal.id);
+          if (index !== -1) {
+            this.guests[index].name = this.editModal.name;
+            this.guests[index].confirm = this.editModal.confirm;
+          }
+
+          this.editModal.id = '';
+          this.editModal.name = '';
+          this.editModal.confirm = '';
+          this.editModal.open = false;
+        } else {
+            this.errors = "Error al actualizar invitado";
+            console.log(data);
+            setTimeout(() => this.errors = '', 10000);
+        }
+      } catch (e) {
+          this.errors = "Error fatal";
+          console.log(e);  
+          console.log(res);
+          setTimeout(() => this.errors = '', 10000);
+      }
+    },
+
     exportTableToCSV(archiveName, idTable) {
       this.exporting = true;
       

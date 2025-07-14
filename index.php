@@ -53,6 +53,10 @@ $router->get('admin/delete/{id}', function ($id) {
     FormController::deleteCongrats($id);
 });
 
+$router->post('admin/update', function () {
+    FormController::updateGuest();
+});
+
 // RUN ------------------------------
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_GET['r'] ?? '');
 

@@ -1,4 +1,4 @@
-<script src="./assets/js/admin.js?upd=2"></script>
+<script src="./assets/js/admin.js?upd=3"></script>
 <div class="p-7" x-data="guestManager()">
     
     <template x-if="msg">
@@ -99,6 +99,10 @@
                                         </svg>
                                     </a>
 
+                                    <a class="cursor-pointer group" @click="editModal.show(guest.id,guest.name,guest.confirm)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 512 512"><path class="fill-pink-500 group-hover:fill-red-500 transition-colors duration-200" d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+                                    </a>
+
                                 </div>
                             </td>
                         </tr>
@@ -144,15 +148,10 @@
             <p class="mb-5 text-gray-700" x-text="confirmModal.msg"></p>
 
             <div class="flex justify-end gap-3">
-            <button
-                @click="confirmModal.open = false"
-                class="button text-white rounded-full px-6 transition flex items-center gap-2 py-2"
-            >Cancelar</button>
-            
-            <button
-                @click="confirmModal.confirmAction()"
-                class="button text-white rounded-full px-6 transition flex items-center gap-2 py-2 bg-red-600 hover:bg-red-700"
-            >Eliminar</button>
+                <button
+                    @click="confirmModal.confirmAction()"
+                    class="button text-white rounded-full px-6 transition flex items-center gap-2 py-2 bg-red-600 hover:bg-red-700"
+                >Eliminar</button>
             </div>
         </div>
     </div>
@@ -194,6 +193,50 @@
         </div>
     </div>
 
+    <div
+        x-show="editModal.open"
+        @click.away="editModal.open = false"
+        @keydown.escape.window="editModal.open = false"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        style="display: none;"
+    >
+        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm relative mx-3">
+            <button
+            @click="editModal.open = false"
+            class="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-2xl"
+            >&times;</button>
+
+            <h2 class="text-lg font-semibold text-gray-800 mb-3">Editar invitad@</h2>
+            <div>
+                <input
+                    type="text"
+                    x-model="editModal.name"
+                    class="input border border-blue-300 rounded-full focus:outline-none focus:ring-4 focus:ring-blue-300 px-4 py-2 transition w-full mb-2"
+                    placeholder="Nombre completo"
+                    required
+                >
+                <div class="w-full mb-2">
+                    <select
+                        x-model="editModal.confirm"
+                        class="input w-full border border-rose-800 rounded-full focus:outline-none focus:ring-4 focus:ring-rose-800 px-4 py-2 transition" required
+                    >
+                        <option hidden>SELECCIONA: ¿Asistirás a la fiesta?</option>
+                        <option value="Si">Si (Asistiré a la fiesta)</option>
+                        <option value="Si +1">Si +1 (Asistiré y llevaré a alguien)</option>
+                        <option value="No">No (No voy a asistir)</option>
+                        <option value="Tal vez">Tal vez (Aún no sé si asistiré)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <button
+                    @click="update()"
+                    class="button text-white rounded-full px-6 transition flex items-center gap-2 py-2"
+                >Editar</button>
+            </div>
+        </div>
+    </div>
+
 
 </div>
-

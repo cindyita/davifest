@@ -47,4 +47,22 @@ class FormController {
         }
     }
 
+    public static function updateGuest(){
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $success = DBModel::updateGuest(
+            $data['id'],
+            $data['name'],
+            $data['confirm']
+        );
+
+        if($success){
+            echo json_encode(['success' => $success, 'id' => $data['id']]);
+        }else{
+            echo json_encode(['success' => false, 'error' => 'Error No se pudo guardar']);
+            exit;
+        }
+
+    }
+
 }

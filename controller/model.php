@@ -95,6 +95,26 @@ class DBModel {
         return $stmt->execute([':id' => $id]);
     }
 
+    public static function updateGuest($id, $name, $confirm) {
+        try {
+            $pdo = self::connect();
+            $stmt = $pdo->prepare("
+                UPDATE congrats
+                SET name = :name, confirm = :confirm
+                WHERE id = :id
+            ");
+            $result = $stmt->execute([
+                ':id' => $id,
+                ':name' => $name,
+                ':confirm' => $confirm
+            ]);
+            return $result;
+        } catch (PDOException $e) {
+            error_log("Error en updateGuest: " . $e->getMessage());
+            return false;
+        }
+    }
+
     public static function lastId(){
         $pdo = self::connect();
         return $pdo->lastInsertId();
