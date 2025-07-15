@@ -66,11 +66,25 @@ class DBModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function getJustCongrats() {
+        $pdo = self::connect();
+        $stmt = $pdo->query("SELECT 
+                name, congrats
+            FROM congrats
+            ORDER BY date_confirm ASC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public static function getStats() {
         $pdo = self::connect();
         $stmt = $pdo->query("SELECT
             COUNT(DISTINCT name) AS total,
-            SUM(CASE WHEN confirm = 'Si' THEN 1 ELSE 0 END) AS total_si,
+            SUM(CASE
+                    WHEN confirm = 'Si' THEN 1
+                    WHEN confirm = 'Si +1' THEN 1
+                    ELSE 0 
+                END) AS total_si,
             SUM(CASE 
                     WHEN confirm = 'Si' THEN 1 
                     WHEN confirm = 'Si +1' THEN 2 

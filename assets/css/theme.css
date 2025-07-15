@@ -135,6 +135,21 @@ h1 {
     transform: translate(37px);
   }
 }
+.splide__arrow {
+  position: fixed;
+  background: #ffbfbf;
+}
+.splide__arrow svg {
+  fill: var(--primary);
+}
+
+.splide__pagination__page {
+  background: #ffbfbf;
+}
+.splide__pagination__page.is-active {
+  background: var(--primary);
+}
+
 .diamond {
   width: 150px;
   height: 150px;

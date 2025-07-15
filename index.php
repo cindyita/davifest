@@ -41,6 +41,10 @@ $router->get('admin/getcongrats', function () {
     FormController::getCongrats();
 });
 
+$router->get('admin/getjustcongrats', function () {
+    FormController::getJustCongrats();
+});
+
 $router->get('admin/getstats', function () {
     FormController::getStats();
 });

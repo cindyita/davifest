@@ -24,6 +24,11 @@ class FormController {
         echo json_encode($congrats);
     }
 
+    public static function getJustCongrats(){
+        $congrats = DBModel::getJustCongrats();
+        echo json_encode($congrats);
+    }
+
     public static function getStats(){
         $get = DBModel::getStats();
         echo json_encode($get);

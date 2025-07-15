@@ -2,7 +2,7 @@
 
 <section class="content-bubbles">
   <div class="bubbles">
-  <?php for ($i=0; $i < 20; $i++) { ?>
+  <?php for ($i = 0; $i < 20; $i++) { ?>
     <div class="bubble"></div>
   <?php } ?>
   </div>

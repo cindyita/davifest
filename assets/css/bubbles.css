@@ -12,14 +12,18 @@
 }
 .bubble{
   position: absolute;
-  bottom:-100px;
-  width:40px;
+  bottom: -100px;
+  width: 40px;
   height: 40px;
   border: 2px solid #a50644;
   background:transparent;
   border-radius:50%;
   opacity:0.5;
   animation: rise 10s infinite ease-in;
+}
+.bubble2 {
+  border: 2px solid #a50644;
+  opacity:0.4;
 }
 .bubble:nth-child(1){
   width:40px;

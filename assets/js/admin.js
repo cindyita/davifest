@@ -49,6 +49,55 @@ function guestManager() {
         this.open = true;
       }
     },
+    presModal: {
+      open: false,
+      allCongrats: [],
+      splideinstance: false,
+      async show() {
+        showConfetti();
+        if (!this.splideinstance) {
+
+          document.querySelector("#splide-list").innerHTML = "Cargando..";
+          const res = await fetch('admin/getjustcongrats');
+          const data = await res.json();
+          this.allCongrats = data;  
+          
+          this.open = true;
+
+          await new Promise(resolve => {
+            requestAnimationFrame(() => {
+              setTimeout(resolve, 50);
+            });
+          });
+
+          let html = '';
+          data.forEach(el => {
+            html += '<li class="splide__slide px-5 w-full h-full"><p class="p-5 w-full h-full overflow-y-scroll text-center flex justify-start md:justify-center items-center flex-col gap-4 text-base md:text-xl lg:text-2xl 2xl:text-3xl">'+el.congrats+'<i class="text-pink-600">-'+el.name+'</i> <img src="https://i.pinimg.com/originals/b4/72/a1/b472a187696137c70e6456450b99c351.gif" width="60px"></p></li>';
+          });
+          document.querySelector("#splide-list").innerHTML = html;
+
+          if (window.splideInstance) {
+            window.splideInstance.destroy();
+          }
+          var splide = new Splide('#splide', {
+            type: 'loop',
+            perPage: 1,
+            arrows: true,
+            pagination: true
+          });
+
+          splide.on('moved', () => {
+            showConfetti();
+          });
+
+          splide.mount();
+          this.splideinstance = true;
+        } else {
+          this.open = true;
+        }
+
+      }
+    },
     statsModal: {
       open: false,
       msg: '',

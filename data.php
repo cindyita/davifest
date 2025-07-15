@@ -3,6 +3,7 @@ require_once 'utils/loadEnv.php';
 loadEnv('./.env');
 
 const DB_PATH = __DIR__ . '/db/db.sqlite';
+define('ACTUALPAGE',(isset($_GET) && $_GET['r']) ? $_GET['r'] : 'home');
 define('EVENT_TITLE', $_ENV['EVENT_TITLE'] ?? 'Invitación al evento');
 define('EVENT_SUBTITLE', $_ENV['EVENT_SUBTITLE'] ?? 'Te han invitado a un evento');
 define('EVENT_DESCRIPTION', $_ENV['EVENT_DESCRIPTION'] ?? 'Información del evento');
