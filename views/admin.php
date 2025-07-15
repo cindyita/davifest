@@ -1,5 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script src="./assets/js/admin.js?upd=11"></script>
+<script src="./assets/js/admin.js?upd=12"></script>
 <div class="p-7" x-data="guestManager()">
     
     <template x-if="msg">
@@ -67,7 +67,7 @@
             <table class="w-full text-sm text-left rtl:text-right" id="list-guests">
                 <thead class="text-xs uppercase">
                     <tr>
-                        <th @click="sortBy('id')" class="py-1 px-2 border border-pink-300 bg-pink-100 cursor-pointer"><span class="flex gap-1 items-center">Id <span x-html="sortColumn != 'id' ? '<?= htmlspecialchars($sortDefault, ENT_QUOTES) ?>' : (sortAsc ? '<?= htmlspecialchars($sortUp, ENT_QUOTES) ?>' : '<?= htmlspecialchars($sortDown, ENT_QUOTES) ?>')"></span></span>
+                        <th @click="sortBy('row')" class="py-1 px-2 border border-pink-300 bg-pink-100 cursor-pointer"><span class="flex gap-1 items-center">Row <span x-html="sortColumn != 'row' ? '<?= htmlspecialchars($sortDefault, ENT_QUOTES) ?>' : (sortAsc ? '<?= htmlspecialchars($sortUp, ENT_QUOTES) ?>' : '<?= htmlspecialchars($sortDown, ENT_QUOTES) ?>')"></span></span>
                         </th>
                         <th @click="sortBy('name')" class="py-1 px-2 border border-pink-300 bg-pink-100 cursor-pointer"><span class="flex gap-1 items-center">Nombre <span x-html="sortColumn != 'name' ? '<?= htmlspecialchars($sortDefault, ENT_QUOTES) ?>' : (sortAsc ? '<?= htmlspecialchars($sortUp, ENT_QUOTES) ?>' : '<?= htmlspecialchars($sortDown, ENT_QUOTES) ?>')"></span></span></th>
                         <th @click="sortBy('confirm')" class="py-1 px-2 border border-pink-300 bg-pink-100 cursor-pointer"><span class="flex gap-1 items-center">Irá al evento <span x-html="sortColumn != 'confirm' ? '<?= htmlspecialchars($sortDefault, ENT_QUOTES) ?>' : (sortAsc ? '<?= htmlspecialchars($sortUp, ENT_QUOTES) ?>' : '<?= htmlspecialchars($sortDown, ENT_QUOTES) ?>')"></span></span></th>
@@ -80,7 +80,7 @@
                     <template x-for="guest in guestsFilter()" :key="guest.id">
                         <tr>
                             
-                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="guest.id">
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="guest.row">
                             </td>
                             <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="guest.name">
                             </td>
@@ -108,6 +108,10 @@
 
                                     <a class="cursor-pointer group" @click="editModal.show(guest.id,guest.name,guest.confirm)" title="Editar registro">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 512 512"><path class="fill-pink-500 group-hover:fill-red-500 transition-colors duration-200" d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"/></svg>
+                                    </a>
+
+                                    <a class="cursor-pointer group" @click="infoModal.show(guest)" title="Información del registro">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 512 512"><path class="fill-pink-500 group-hover:fill-red-500 transition-colors duration-200" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
                                     </a>
 
                                 </div>
@@ -272,6 +276,48 @@
                     </section>
 
                 </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div
+        x-show="infoModal.open"
+        @click.away="infoModal.open = false"
+        @keydown.escape.window="infoModal.open = false"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-3"
+        style="display: none;"
+    >
+        <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-md relative mx-3">
+            
+            <button
+            @click="infoModal.open = false"
+            class="absolute top-2 right-3 text-pink-500 hover:text-red-500 text-2xl z-10"
+            >&times;</button>
+
+            <h2 class="text-lg font-semibold text-pink-700 mb-3 z-10">Información del registro</h2>
+            <div>
+                <table class="w-full text-sm text-left rtl:text-right" id="list-guests">
+                    <thead class="text-xs uppercase">
+                        <tr>
+                            <th class="py-1 px-2 border border-pink-300 bg-pink-100">Id</th>
+                            <th class="py-1 px-2 border border-pink-300 bg-pink-100">Row</th>
+                            <th class="py-1 px-2 border border-pink-300 bg-pink-100">Nombre</th>
+                            <th class="py-1 px-2 border border-pink-300 bg-pink-100">Confirmación</th>
+                            <th class="py-1 px-2 border border-pink-300 bg-pink-100">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="infoModal.guest.id"></td>
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="infoModal.guest.row"></td>
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="infoModal.guest.name"></td>
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="infoModal.guest.confirm"></td>
+                            <td class="p-2 md:table-cell font-medium border border-pink-300" x-text="infoModal.guest.date_confirm"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
         </div>

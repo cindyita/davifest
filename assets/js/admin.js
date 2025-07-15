@@ -110,8 +110,16 @@ function guestManager() {
         this.open = true;
       }
     },
+    infoModal: {
+      open: false,
+      guest: {},
+      show(guest) {
+        this.guest = guest;
+        this.open = true;
+      }
+    },
 
-    sortColumn: 'id',
+    sortColumn: 'row',
     sortAsc: false,
     sortBy(column) {
       if (this.sortColumn === column) {

@@ -59,7 +59,7 @@ class DBModel {
     public static function getAllCongrats() {
         $pdo = self::connect();
         $stmt = $pdo->query("SELECT 
-                id, name, confirm, congrats
+                ROW_NUMBER() OVER (ORDER BY id ASC) AS row, id, name, confirm, congrats, strftime('%d-%m-%Y %H:%M', date_confirm) AS date_confirm
             FROM congrats
             ORDER BY id DESC
         ");
